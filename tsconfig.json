@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",          /* Qual versão do JS gerar. ES2020 é segura e moderna. */
+    "module": "CommonJS",         /* Sistema de módulos. CommonJS é o mais compatível com o Lambda. */
+    "outDir": "./dist",           /* ONDE colocar o código JS compilado. CRUCIAL! */
+    "rootDir": "src",           /* ONDE está seu código fonte TypeScript. */
+    "strict": true,               /* Habilita checagens de tipo mais rigorosas. Boa prática. */
+    "esModuleInterop": true,      /* Melhora a compatibilidade entre CommonJS e ES Modules. */
+    "skipLibCheck": true,         /* Pula a verificação de tipos das bibliotecas de declaração. */
+    "forceConsistentCasingInFileNames": true /* Garante consistência no nome dos arquivos. */
+  },
+  "include": ["src/**/*"],          /* Quais arquivos o 'tsc' deve olhar para compilar. */
+  "exclude": ["node_modules"]       /* Quais pastas ignorar. */
+}

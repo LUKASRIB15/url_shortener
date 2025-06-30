@@ -1,0 +1,13 @@
+# Dependencies
+node_modules
+
+# Build
+dist
+
+# Infra
+.terraform
+.terraform.lock.hcl
+terraform.tfstate.backup
+infra/files/*
+
+
