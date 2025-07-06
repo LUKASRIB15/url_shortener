@@ -8,7 +8,7 @@ dist
 .terraform
 .terraform.lock.hcl
 terraform.tfstate.backup
-terraform.tfstate
+infra/terraform.tfstate
 infra/files/*
 
 

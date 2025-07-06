@@ -1,3 +1,5 @@
+# ------------ Lambda function ------------
+
 data "archive_file" "url_shortener_artefact" {
   type        = "zip"
   source_file = "${local.lambdas_path}/index.js"
@@ -20,4 +22,15 @@ resource "aws_lambda_function" "url_shortener" {
 resource "aws_lambda_function_url" "url_shortener_url" {
   function_name      = aws_lambda_function.url_shortener.function_name
   authorization_type = "NONE"
+}
+
+# ------------ Bucket s3 ------------
+
+resource "aws_s3_bucket" "url_shortener_bucket" {
+  bucket = "lukasrib15-url-shortener-storage"
+
+  tags = {
+    Name = "Url Shortener"
+    Iac  = true
+  }
 }
