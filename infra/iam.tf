@@ -28,10 +28,6 @@ data "aws_iam_policy_document" "create_logs_cloudwatch" {
   }
 }
 
-data "aws_s3_bucket" "url_shortener_bucket" {
-  bucket = "lukasrib15-url-shortener-storage"
-}
-
 data "aws_iam_policy_document" "s3_bucket_access" {
   statement {
     sid       = "AllowS3PutGetObject"
@@ -40,7 +36,14 @@ data "aws_iam_policy_document" "s3_bucket_access" {
       "s3:PutObject",
       "s3:GetObject"
     ]
-    resources = ["${data.aws_s3_bucket.url_shortener_bucket.arn}/*"]
+    resources = ["${aws_s3_bucket.url_shortener_bucket.arn}/*"]
+  }
+
+  statement {
+    sid       = "AllowS3ListBucket"
+    effect    = "Allow"
+    actions   = ["s3:ListBucket"]
+    resources = [aws_s3_bucket.url_shortener_bucket.arn]
   }
 }
 
@@ -68,4 +71,18 @@ resource "aws_iam_role_policy_attachment" "url_shortener_cloudwatch" {
 resource "aws_iam_role_policy_attachment" "url_shortener_s3_access" {
   policy_arn = aws_iam_policy.s3_bucket_access_policy.arn
   role       = aws_iam_role.url_shortener_iam_role.name
+}
+
+resource "aws_lambda_permission" "create_url_shortener_permission" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.url_shortener_creation.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_apigatewayv2_api.url_shortener_api.execution_arn}/*/*"
+}
+
+resource "aws_lambda_permission" "redirect_url_shortener_permission" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.url_shortener_redirection.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_apigatewayv2_api.url_shortener_api.execution_arn}/*/*"
 }

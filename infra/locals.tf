@@ -1,5 +1,6 @@
 locals {
-  lambdas_path = "${path.module}/../dist"
+  url_shortener_creation_lambda_path = "${path.module}/../url-shortener-creation/dist"
+  url_shortener_redirection_lambda_path = "${path.module}/../url-shortener-redirection/dist"
   layers_path  = "${path.module}/layers"
 
   common_tags = {

@@ -3,7 +3,9 @@ import {Handler} from "aws-lambda"
 import { randomUUID } from "node:crypto"
 
 export const handler: Handler = async (event: any) => {
-  const client = new S3Client()
+  const client = new S3Client({
+    region: "sa-east-1"
+  })
   const body = JSON.parse(event.body)
 
   try{
@@ -15,9 +17,9 @@ export const handler: Handler = async (event: any) => {
   }catch(error: any){
     return {
       statusCode: 400,
-      body: {
+      body: JSON.stringify({
         message: error.message
-      }
+      })
     }
   }
   
@@ -37,9 +39,9 @@ export const handler: Handler = async (event: any) => {
 
   const response = {
     statusCode: 200,
-    body: {
+    body: JSON.stringify({
       url_shortener: shortUrlCode
-    }
+    })
   }
 
   return response

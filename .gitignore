@@ -11,4 +11,5 @@ terraform.tfstate.backup
 infra/terraform.tfstate
 infra/files/*
 
-
+# Others
+.vscode
