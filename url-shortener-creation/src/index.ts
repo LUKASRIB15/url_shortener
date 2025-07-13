@@ -28,7 +28,7 @@ export const handler: Handler = async (event: any) => {
   try{
     await client.send(
       new PutObjectCommand({
-        Bucket: "lukasrib15-url-shortener-storage",
+        Bucket: "<your_bucket_name>",
         Key: shortUrlCode + ".json",
         Body: JSON.stringify(body)
       })

@@ -43,7 +43,7 @@ resource "aws_lambda_function" "url_shortener_redirection" {
 # ------------ Bucket s3 ------------
 
 resource "aws_s3_bucket" "url_shortener_bucket" {
-  bucket = "lukasrib15-url-shortener-storage"
+  bucket = local.bucket_name
 
   tags = {
     Name = "Url Shortener"
